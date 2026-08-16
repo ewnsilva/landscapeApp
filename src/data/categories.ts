@@ -2,10 +2,10 @@ import { Category } from "./types";
 
 export const categories: Category[] = [
   {
-    id: "star",
+    id: "FAVORITE",
     code: "FAVORITE",
-    name: "Destaques",
-    description: "Os preferidos dos viajantes",
+    name: "Favoritos",
+    description: "Cidades favoritadas por você",
   },
   {
     id: "urban",
