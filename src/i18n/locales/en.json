@@ -1,0 +1,67 @@
+{
+  "welcome": {
+    "title": "14ndscapes",
+    "description": "A curated guide to 14 breathtaking destinations and unmissable landscapes around the world, waiting for you to explore.",
+    "cta": "Explore Landscapes"
+  },
+  "home": {
+    "headerTitle": "Home",
+    "searchPlaceholder": "Search by city or country",
+    "searchAccessibilityLabel": "Search cities",
+    "emptyFavorites": "You haven't favorited any city yet.",
+    "emptyCategory": "No city found in this category."
+  },
+  "categories": {
+    "FAVORITE": "Favorites",
+    "URBAN": "Urban",
+    "BEACH": "Beach",
+    "NATURE": "Nature",
+    "CULTURE": "Culture",
+    "ADVENTURE": "Adventure",
+    "GASTRONOMY": "Gastronomy",
+    "LUXURY": "Luxury",
+    "SHOPPING": "Shopping"
+  },
+  "cityItem": {
+    "favoriteAccessibilityLabel": "Favorite {{name}}"
+  },
+  "weather": {
+    "now": "Weather now",
+    "humidity": "Humidity: {{value}}%",
+    "loadingAccessibilityLabel": "Loading weather",
+    "unavailable": "Weather unavailable",
+    "checkConnection": "Check your connection and try again.",
+    "retry": "Try again",
+    "updating": "Updating…",
+    "cached": "Showing last saved weather",
+    "clearSky": "Clear sky",
+    "partlyCloudy": "Partly cloudy",
+    "fog": "Fog",
+    "rain": "Rain",
+    "snow": "Snow",
+    "storm": "Storm",
+    "current": "Current conditions"
+  },
+  "city": {
+    "headerTitle": "About",
+    "notFound": "City not found.",
+    "backToHome": "← Back to Home",
+    "location": "Location",
+    "attractions": "Tourist Attractions",
+    "relatedDestinations": "Related destinations",
+    "share": "Share destination",
+    "shareTitle": "Discover {{name}}",
+    "shareMessage": "Discover {{name}}, {{country}}, on 14ndscapes: {{url}}",
+    "shareError": "Could not share",
+    "shareErrorMessage": "Please try again shortly.",
+    "gallery": "Photo Gallery",
+    "galleryError": "Could not load photos.",
+    "galleryEmpty": "No additional photos found."
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "pt": "Portuguese",
+    "es": "Spanish"
+  }
+}

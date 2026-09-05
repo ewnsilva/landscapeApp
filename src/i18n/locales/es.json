@@ -1,0 +1,67 @@
+{
+  "welcome": {
+    "title": "14ndscapes",
+    "description": "Una guía con una selección especial de 14 lugares increíbles y paisajes imperdibles alrededor del mundo, esperando para ser visitados.",
+    "cta": "Explorar Paisajes"
+  },
+  "home": {
+    "headerTitle": "Inicio",
+    "searchPlaceholder": "Buscar por ciudad o país",
+    "searchAccessibilityLabel": "Buscar ciudades",
+    "emptyFavorites": "Aún no has marcado ninguna ciudad como favorita.",
+    "emptyCategory": "No se encontró ninguna ciudad en esta categoría."
+  },
+  "categories": {
+    "FAVORITE": "Favoritos",
+    "URBAN": "Urbano",
+    "BEACH": "Playa",
+    "NATURE": "Naturaleza",
+    "CULTURE": "Cultura",
+    "ADVENTURE": "Aventura",
+    "GASTRONOMY": "Gastronomía",
+    "LUXURY": "Lujo",
+    "SHOPPING": "Compras"
+  },
+  "cityItem": {
+    "favoriteAccessibilityLabel": "Marcar {{name}} como favorito"
+  },
+  "weather": {
+    "now": "Clima ahora",
+    "humidity": "Humedad: {{value}}%",
+    "loadingAccessibilityLabel": "Cargando clima",
+    "unavailable": "Clima no disponible",
+    "checkConnection": "Verifica tu conexión e inténtalo de nuevo.",
+    "retry": "Intentar de nuevo",
+    "updating": "Actualizando…",
+    "cached": "Mostrando el último clima guardado",
+    "clearSky": "Cielo despejado",
+    "partlyCloudy": "Parcialmente nublado",
+    "fog": "Niebla",
+    "rain": "Lluvia",
+    "snow": "Nieve",
+    "storm": "Tormenta",
+    "current": "Condiciones actuales"
+  },
+  "city": {
+    "headerTitle": "Acerca de",
+    "notFound": "Ciudad no encontrada.",
+    "backToHome": "← Volver al Inicio",
+    "location": "Ubicación",
+    "attractions": "Atracciones Turísticas",
+    "relatedDestinations": "Destinos relacionados",
+    "share": "Compartir destino",
+    "shareTitle": "Descubre {{name}}",
+    "shareMessage": "Descubre {{name}}, {{country}}, en 14ndscapes: {{url}}",
+    "shareError": "No se pudo compartir",
+    "shareErrorMessage": "Inténtalo de nuevo en unos instantes.",
+    "gallery": "Galería de Fotos",
+    "galleryError": "No se pudieron cargar las fotos.",
+    "galleryEmpty": "No se encontraron fotos adicionales."
+  },
+  "language": {
+    "label": "Idioma",
+    "en": "Inglés",
+    "pt": "Portugués",
+    "es": "Español"
+  }
+}
