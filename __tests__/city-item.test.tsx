@@ -11,6 +11,6 @@ jest.mock("expo-image", () => ({ Image: "Image" }));
 
 test("aciona o favorito ao pressionar o botão do card", () => {
   const screen = render(<CityItem city={cities[0]} />);
-  fireEvent.press(screen.getByLabelText("Favoritar Rio de Janeiro"));
+  fireEvent.press(screen.getByLabelText("Favorite Rio de Janeiro"));
   expect(mockToggleFavorite).toHaveBeenCalledWith("rio-de-janeiro");
 });
