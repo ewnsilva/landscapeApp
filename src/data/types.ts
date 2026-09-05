@@ -6,19 +6,18 @@ export interface Category {
 }
 
 export type CategoryCode =
-  | "ADVENTURE"
-  | "BEACH"
-  | "CULTURE"
-  | "GASTRONOMY"
-  | "NATURE"
-  | "URBAN"
-  | "LUXURY"
-  | "SHOPPING";
+  "ADVENTURE" | "BEACH" | "CULTURE" | "GASTRONOMY" | "NATURE" | "URBAN" | "LUXURY" | "SHOPPING";
+
+export type LocalizedString = {
+  en: string;
+  pt: string;
+  es: string;
+};
 
 export interface TouristAttraction {
   id: string;
-  name: string;
-  description: string;
+  name: LocalizedString;
+  description?: LocalizedString;
   cityId: string;
 }
 
@@ -32,9 +31,22 @@ export interface City {
   name: string;
   country: string;
   coverImage: any;
-  description: string;
+  description: LocalizedString;
   categories: Category[];
   touristAttractions: TouristAttraction[];
   relatedCitiesIds: string[];
   location: Location;
+}
+
+export interface LocalizedTouristAttraction extends Omit<
+  TouristAttraction,
+  "name" | "description"
+> {
+  name: string;
+  description?: string;
+}
+
+export interface LocalizedCity extends Omit<City, "description" | "touristAttractions"> {
+  description: string;
+  touristAttractions: LocalizedTouristAttraction[];
 }
