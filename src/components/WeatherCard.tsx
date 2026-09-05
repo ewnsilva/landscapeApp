@@ -1,4 +1,5 @@
 import { useWeather } from "@/hooks/useWeather";
+import { useTranslation } from "@/i18n/useTranslation";
 import { getWeatherPresentation } from "@/services/weather";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -8,11 +9,12 @@ interface WeatherCardProps {
 }
 
 export function WeatherCard({ latitude, longitude }: WeatherCardProps) {
+  const { t } = useTranslation();
   const { data, isError, isFetching, isLoading, refetch } = useWeather(latitude, longitude);
 
   if (isLoading && !data) {
     return (
-      <View accessibilityLabel="Carregando clima" style={styles.skeletonCard}>
+      <View accessibilityLabel={t("weather.loadingAccessibilityLabel")} style={styles.skeletonCard}>
         <View style={[styles.skeleton, styles.skeletonTitle]} />
         <View style={[styles.skeleton, styles.skeletonContent]} />
       </View>
@@ -22,10 +24,10 @@ export function WeatherCard({ latitude, longitude }: WeatherCardProps) {
   if (isError && !data) {
     return (
       <View style={styles.errorCard}>
-        <Text style={styles.errorTitle}>Clima indisponível</Text>
-        <Text style={styles.errorText}>Verifique sua conexão e tente novamente.</Text>
+        <Text style={styles.errorTitle}>{t("weather.unavailable")}</Text>
+        <Text style={styles.errorText}>{t("weather.checkConnection")}</Text>
         <Pressable onPress={() => refetch()} style={styles.retryButton}>
-          <Text style={styles.retryButtonText}>Tentar novamente</Text>
+          <Text style={styles.retryButtonText}>{t("weather.retry")}</Text>
         </Pressable>
       </View>
     );
@@ -37,9 +39,9 @@ export function WeatherCard({ latitude, longitude }: WeatherCardProps) {
   return (
     <View style={styles.card}>
       <View>
-        <Text style={styles.overline}>Clima agora</Text>
-        <Text style={styles.condition}>{presentation.label}</Text>
-        <Text style={styles.humidity}>Umidade: {data.humidity}%</Text>
+        <Text style={styles.overline}>{t("weather.now")}</Text>
+        <Text style={styles.condition}>{t(presentation.labelKey)}</Text>
+        <Text style={styles.humidity}>{t("weather.humidity", { value: data.humidity })}</Text>
       </View>
       <View style={styles.temperatureContainer}>
         <Text style={styles.icon}>{presentation.icon}</Text>
@@ -47,7 +49,7 @@ export function WeatherCard({ latitude, longitude }: WeatherCardProps) {
       </View>
       {(isFetching || isError) && (
         <Text style={styles.cacheMessage}>
-          {isFetching ? "Atualizando…" : "Exibindo último clima salvo"}
+          {isFetching ? t("weather.updating") : t("weather.cached")}
         </Text>
       )}
     </View>

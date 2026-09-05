@@ -1,13 +1,16 @@
 // src/app/index.tsx
 import CategoryFilter from "@/components/CategoryFilter";
 import CityItem from "@/components/CityItem";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { City } from "@/data/types";
 import { useCityFilter } from "@/hooks/useCityFilter";
+import { useTranslation } from "@/i18n/useTranslation";
 import { useCallback } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+  const { t } = useTranslation();
   const {
     categories,
     selectedCategory,
@@ -21,8 +24,23 @@ export default function Index() {
 
   const keyExtractor = useCallback((item: City) => item.id, []);
 
+  const renderEmptyList = useCallback(
+    () => (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>
+          {selectedCategory === "FAVORITE" ? t("home.emptyFavorites") : t("home.emptyCategory")}
+        </Text>
+      </View>
+    ),
+    [selectedCategory, t],
+  );
+
+  const renderSeparator = useCallback(() => <View style={styles.separator} />, []);
+
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <LanguageSwitcher />
+
       <CategoryFilter
         categories={categories}
         selectedCategory={selectedCategory}
@@ -30,11 +48,11 @@ export default function Index() {
       />
 
       <TextInput
-        accessibilityLabel="Buscar cidades"
+        accessibilityLabel={t("home.searchAccessibilityLabel")}
         autoCapitalize="words"
         clearButtonMode="while-editing"
         onChangeText={setSearchQuery}
-        placeholder="Buscar por cidade ou país"
+        placeholder={t("home.searchPlaceholder")}
         placeholderTextColor="#8a8a8a"
         returnKeyType="search"
         style={styles.searchInput}
@@ -46,16 +64,8 @@ export default function Index() {
         renderItem={renderCityItem}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.listContent}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListEmptyComponent={() => (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>
-              {selectedCategory === "FAVORITE"
-                ? "Você ainda não favoritou nenhuma cidade."
-                : "Nenhuma cidade encontrada nessa categoria."}
-            </Text>
-          </View>
-        )}
+        ItemSeparatorComponent={renderSeparator}
+        ListEmptyComponent={renderEmptyList}
         initialNumToRender={6}
         maxToRenderPerBatch={8}
         windowSize={5}

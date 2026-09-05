@@ -40,13 +40,14 @@ export async function getCurrentWeather(latitude: number, longitude: number): Pr
 }
 
 export function getWeatherPresentation(weatherCode: number, isDay: boolean) {
-  if (weatherCode === 0) return { icon: isDay ? "☀️" : "🌙", label: "Céu limpo" };
+  if (weatherCode === 0) return { icon: isDay ? "☀️" : "🌙", labelKey: "weather.clearSky" };
   if ([1, 2, 3].includes(weatherCode))
-    return { icon: isDay ? "🌤️" : "☁️", label: "Parcialmente nublado" };
-  if ([45, 48].includes(weatherCode)) return { icon: "🌫️", label: "Neblina" };
+    return { icon: isDay ? "🌤️" : "☁️", labelKey: "weather.partlyCloudy" };
+  if ([45, 48].includes(weatherCode)) return { icon: "🌫️", labelKey: "weather.fog" };
   if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(weatherCode))
-    return { icon: "🌧️", label: "Chuva" };
-  if ([71, 73, 75, 77, 85, 86].includes(weatherCode)) return { icon: "❄️", label: "Neve" };
-  if ([95, 96, 99].includes(weatherCode)) return { icon: "⛈️", label: "Tempestade" };
-  return { icon: "🌡️", label: "Condições atuais" };
+    return { icon: "🌧️", labelKey: "weather.rain" };
+  if ([71, 73, 75, 77, 85, 86].includes(weatherCode))
+    return { icon: "❄️", labelKey: "weather.snow" };
+  if ([95, 96, 99].includes(weatherCode)) return { icon: "⛈️", labelKey: "weather.storm" };
+  return { icon: "🌡️", labelKey: "weather.current" };
 }

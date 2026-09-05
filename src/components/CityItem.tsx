@@ -1,9 +1,11 @@
 // src/components/CityItem.tsx
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { City } from "@/data/types";
+import { useTranslation } from "@/i18n/useTranslation";
+import { getLocalizedCity } from "@/utils/getLocalizedCity";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface CityItemProps {
@@ -11,9 +13,11 @@ interface CityItemProps {
 }
 
 function CityItem({ city }: CityItemProps) {
+  const { i18n, t } = useTranslation();
   const router = useRouter();
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = isFavorite ? isFavorite(city.id) : false;
+  const localizedCity = useMemo(() => getLocalizedCity(city, i18n.language), [city, i18n.language]);
 
   const handleCardPress = () => {
     router.push({
@@ -36,14 +40,14 @@ function CityItem({ city }: CityItemProps) {
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{city.name}</Text>
           <Text numberOfLines={2} style={styles.description}>
-            {city.description}
+            {localizedCity.description}
           </Text>
         </View>
       </Pressable>
 
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`Favoritar ${city.name}`}
+        accessibilityLabel={t("cityItem.favoriteAccessibilityLabel", { name: city.name })}
         hitSlop={12}
         onPress={handleFavoritePress}
         style={styles.favoriteButton}

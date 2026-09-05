@@ -1,13 +1,16 @@
 // src/app/city/[id].tsx
-import { cities } from "@/data/cities";
 import { WeatherCard } from "@/components/WeatherCard";
+import { cities } from "@/data/cities";
+import { useTranslation } from "@/i18n/useTranslation";
+import { getLocalizedCity } from "@/utils/getLocalizedCity";
 import { Image } from "expo-image";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo } from "react";
-import MapView, { Marker } from "react-native-maps";
 import { Alert, Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 export default function CityScreen() {
+  const { i18n, t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
 
@@ -15,6 +18,10 @@ export default function CityScreen() {
   const city = useMemo(() => {
     return cities.find((item) => item.id === id);
   }, [id]);
+
+  const localizedCity = useMemo(() => {
+    return city ? getLocalizedCity(city, i18n.language) : undefined;
+  }, [city, i18n.language]);
 
   const relatedCities = useMemo(() => {
     if (!city) return [];
@@ -27,10 +34,10 @@ export default function CityScreen() {
   if (!city) {
     return (
       <View style={styles.notFoundContainer}>
-        <Text style={styles.notFoundText}>Cidade não encontrada.</Text>
+        <Text style={styles.notFoundText}>{t("city.notFound")}</Text>
         <Link href="../" asChild>
           <Pressable style={styles.backButton}>
-            <Text style={styles.backButtonText}>Voltar para o início</Text>
+            <Text style={styles.backButtonText}>{t("city.backToHome")}</Text>
           </Pressable>
         </Link>
       </View>
@@ -40,11 +47,15 @@ export default function CityScreen() {
   const handleShare = async () => {
     try {
       await Share.share({
-        title: `Conheça ${city.name}`,
-        message: `Conheça ${city.name}, ${city.country}, no Landscape App: landscapeapp://city/${city.id}`,
+        title: t("city.shareTitle", { name: city.name }),
+        message: t("city.shareMessage", {
+          name: city.name,
+          country: city.country,
+          url: `landscapeapp://city/${city.id}`,
+        }),
       });
     } catch {
-      Alert.alert("Não foi possível compartilhar", "Tente novamente em instantes.");
+      Alert.alert(t("city.shareError"), t("city.shareErrorMessage"));
     }
   };
 
@@ -62,12 +73,12 @@ export default function CityScreen() {
         {city.country && <Text style={styles.country}>{city.country}</Text>}
       </View>
 
-      <Text style={styles.description}>{city.description}</Text>
+      <Text style={styles.description}>{localizedCity?.description}</Text>
 
       <WeatherCard latitude={city.location.latitude} longitude={city.location.longitude} />
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Localização</Text>
+        <Text style={styles.sectionTitle}>{t("city.location")}</Text>
         <MapView
           initialRegion={{
             latitude: city.location.latitude,
@@ -84,14 +95,13 @@ export default function CityScreen() {
       </View>
 
       <Pressable accessibilityRole="button" onPress={handleShare} style={styles.shareButton}>
-        <Text style={styles.shareButtonText}>Compartilhar destino</Text>
+        <Text style={styles.shareButtonText}>{t("city.share")}</Text>
       </Pressable>
 
-      {/* Exibição de Atrações Turísticas */}
-      {city.touristAttractions.length > 0 && (
+      {localizedCity && localizedCity.touristAttractions.length > 0 && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Atrações Turísticas</Text>
-          {city.touristAttractions.map((attraction) => (
+          <Text style={styles.sectionTitle}>{t("city.attractions")}</Text>
+          {localizedCity.touristAttractions.map((attraction) => (
             <View key={attraction.id} style={styles.attractionCard}>
               <Text style={styles.attractionName}>• {attraction.name}</Text>
               {attraction.description && (
@@ -104,7 +114,7 @@ export default function CityScreen() {
 
       {relatedCities.length > 0 && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Destinos relacionados</Text>
+          <Text style={styles.sectionTitle}>{t("city.relatedDestinations")}</Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -140,7 +150,7 @@ export default function CityScreen() {
 
       <Link href="../" asChild>
         <Pressable style={styles.backButton}>
-          <Text style={styles.backButtonText}>← Voltar para Home</Text>
+          <Text style={styles.backButtonText}>{t("city.backToHome")}</Text>
         </Pressable>
       </Link>
     </ScrollView>

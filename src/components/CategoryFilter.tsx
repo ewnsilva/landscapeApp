@@ -1,9 +1,10 @@
 // src/components/CategoryFilter.tsx
 import { Category } from "@/data/types";
+import { useTranslation } from "@/i18n/useTranslation";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface CategoryFilterProps {
-  readonly categories: ReadonlyArray<Category>;
+  readonly categories: readonly Category[];
   readonly selectedCategory: string | null;
   readonly onSelectCategory: (categoryId: string) => void;
 }
@@ -13,6 +14,8 @@ export default function CategoryFilter({
   selectedCategory,
   onSelectCategory,
 }: Readonly<CategoryFilterProps>) {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -24,15 +27,14 @@ export default function CategoryFilter({
         renderItem={({ item }) => {
           const categoryIdentifier = item.id || item.code;
           const isSelected = selectedCategory === categoryIdentifier;
+          const label = t(`categories.${item.code}`, { defaultValue: item.name });
 
           return (
             <Pressable
               style={[styles.chip, isSelected && styles.chipSelected]}
               onPress={() => onSelectCategory(categoryIdentifier)}
             >
-              <Text style={[styles.chipText, isSelected && styles.chipTextSelected]}>
-                {item.name}
-              </Text>
+              <Text style={[styles.chipText, isSelected && styles.chipTextSelected]}>{label}</Text>
             </Pressable>
           );
         }}
