@@ -1,4 +1,3 @@
-// src/components/CategoryFilter.tsx
 import { Category } from "@/data/types";
 import { useTranslation } from "@/i18n/useTranslation";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";

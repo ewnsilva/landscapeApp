@@ -9,13 +9,12 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 
-// Mantém a splash screen visível enquanto carrega o idioma (opcional, mas recomendado)
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { t } = useTranslation();
   const [isReady, setIsReady] = useState(false);
-  const [isWelcomeVisible, setIsWelcomeVisible] = useState(true); // Sempre true ao abrir o app
+  const [isWelcomeVisible, setIsWelcomeVisible] = useState(true);
 
   useEffect(() => {
     async function prepare() {

@@ -1,4 +1,3 @@
-// src/app/index.tsx
 import CategoryFilter from "@/components/CategoryFilter";
 import CityItem from "@/components/CityItem";
 import LanguageSwitcher from "@/components/LanguageSwitcher";

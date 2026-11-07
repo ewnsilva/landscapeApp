@@ -75,7 +75,7 @@ export const cities: City[] = [
       pt: "Tóquio combina tradição milenar com tecnologia de ponta e uma cultura fascinante.",
       es: "Tokio combina tradición milenaria con tecnología de punta y una cultura fascinante.",
     },
-    categories: [categories[1], categories[4], categories[5]], // Urbano, Cultura, Aventura
+    categories: [categories[1], categories[4], categories[5]],
 
     touristAttractions: [
       {

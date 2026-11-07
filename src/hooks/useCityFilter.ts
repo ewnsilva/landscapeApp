@@ -1,4 +1,3 @@
-// src/hooks/useCityFilter.ts
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { categories } from "@/data/categories";
 import { cities } from "@/data/cities";

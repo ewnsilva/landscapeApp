@@ -1,4 +1,3 @@
-// src/app/city/[id].tsx
 import { WeatherCard } from "@/components/WeatherCard";
 import { cities } from "@/data/cities";
 import { useTranslation } from "@/i18n/useTranslation";
@@ -13,7 +12,6 @@ export default function CityScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
 
-  // Busca a cidade correspondente ao ID da rota
   const city = useMemo(() => {
     return cities.find((item) => item.id === id);
   }, [id]);

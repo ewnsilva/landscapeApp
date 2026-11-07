@@ -1,4 +1,3 @@
-// src/components/CityItem.tsx
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { City } from "@/data/types";
 import { useTranslation } from "@/i18n/useTranslation";
