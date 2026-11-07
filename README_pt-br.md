@@ -9,11 +9,13 @@ O **14ndscapes** é uma aplicação mobile de alta performance desenvolvida para
 ---
 
 ## 🌟 Destaques do Produto & Proposta de Valor
+
 - **Experiência Curada (14 Destinos Marcantes):** Focado em um catálogo altamente selecionado e de alto valor, apresentando 14 dos locais mais impressionantes do mundo através de uma interface visual imersiva.
 - **Suporte Multilíngue Nativo:** Internacionalização nativa completa para **Inglês (padrão)**, **Português** e **Espanhol**, proporcionando acessibilidade global imediata e troca de idioma em tempo real.
 - **Fluxo de Onboarding Inteligente:** Experiência de boas-vindas no primeiro acesso apresentando a proposta de valor do app, com estado de interação do usuário gerenciado via persistência local.
 - **Arquitetura Offline-First:** O catálogo principal de destinos, a matriz de filtro por categorias e as atrações localizadas carregam instantaneamente, sem dependência de latência de rede.
 - **Mecanismo de Favoritos Persistente:** Sistema de marcadores baseado em estado que permite ao usuário salvar seus destinos preferidos mesmo após reiniciar o aplicativo.
+- **Suporte a Mapas Externos & Compartilhamento:** Integração direta para abrir a localização dos destinos no Google Maps e funcionalidade nativa de compartilhamento de links de destinos.
 
 ---
 
@@ -34,12 +36,12 @@ O **14ndscapes** é uma aplicação mobile de alta performance desenvolvida para
 ```
 
 ### Principais Estratégias Técnicas
+
 - **Roteamento Baseado em Arquivos (Expo Router):** Roteamento estritamente tipado com TypeScript aproveitando a navegação Stack nativa para transições de tela fluidas e personalização precisa do cabeçalho.
 - **Renderização Otimizada de Imagens:** Implementação do expo-image para cache em memória, persistência automática em disco e transições suaves de imagem.
 - **Performance de Lista Virtualizada:** Configuração altamente otimizada da FlatList utilizando memoização do React (useCallback, React.memo) e ajustes finos de virtualização (windowSize, maxToRenderPerBatch, removeClippedSubviews) para manter 60 FPS consistentes na rolagem.
 - **Separação de Responsabilidades:** Lógica de negócios encapsulada em custom hooks limpos (useCityFilter), desacoplando a renderização da interface do manuseio de estado.
 - **Estratégia de Dados Localizados:** Motor de internacionalização desacoplado que combina i18next com utilitários de resolução de dados (getLocalizedCity) para entregar objetos traduzidos dinamicamente.
-
 
 📂 Estrutura do Projeto
 
@@ -65,6 +67,7 @@ src/
 ## 🚀 Como Executar o Projeto
 
 ### Pré-requisitos
+
 - Node.js (v18.0.0 ou superior)
 - npm, pnpm ou yarn
 - Aplicativo Expo Go instalado no celular ou um emulador Android/iOS
@@ -93,6 +96,7 @@ npx expo start
 Escaneie o código QR com o Expo Go (Android) ou com o app de Câmera (iOS) para abrir o projeto.
 
 ## 🛠️ Tecnologias Utilizadas
+
 - **Framework Principal**: React Native / Expo SDK
 - **Navegação**: Expo Router (Stack Navigation)
 - **Linguagem**: TypeScript (Modo Estrito)
@@ -101,7 +105,8 @@ Escaneie o código QR com o Expo Go (Android) ou com o app de Câmera (iOS) para
 - **Mídia & UI**: expo-image, react-native-safe-area-context
 
 ## 🗺️ Roadmap do Produto
+
 - [ ] Integração com API de Clima em Tempo Real (TanStack Query + OpenWeatherMap API)
-- [ ] Mapas Interativos com Geolocalização (react-native-maps)
-- [ ] Suíte de Testes Automatizados (Vitest + React Native Testing Library)
+- [x] Integração com Google Maps Externo e Compartilhamento de Destino
+- [x] Suíte de Testes Automatizados (`Vitest` + `React Native Testing Library`)
 - [ ] Pipeline de CI/CD via GitHub Actions

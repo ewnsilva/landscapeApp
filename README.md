@@ -15,6 +15,7 @@
 - **Smart Onboarding Flow:** First-launch welcome experience introducing the app's value proposition, with user interaction states managed via local persistence.
 - **Offline-First Architecture:** The core destination catalog, category filter matrix, and localized attractions load instantly without network latency dependencies.
 - **Persistent Favorites Engine:** State-driven bookmarking system enabling users to save preferred destinations across app restarts.
+- **External Maps & Sharing Support:** Direct integration to open destination locations in Google Maps and native destination sharing functionality for seamless collaboration.
 
 ---
 
@@ -108,6 +109,6 @@ Scan the QR code with Expo Go (Android) or the Camera app (iOS) to launch the pr
 ## 🗺️ Product Roadmap
 
 - [ ] Real-time Weather Integration (TanStack Query + OpenWeatherMap API)
-- [ ] Interactive Geolocation Maps (react-native-maps)
-- [ ] Automated Testing Suite (Vitest + React Native Testing Library)
+- [x] External Google Maps Integration & Destination Sharing
+- [x] Automated Testing Suite (Vitest + React Native Testing Library)
 - [ ] CI/CD Pipeline via GitHub Actions

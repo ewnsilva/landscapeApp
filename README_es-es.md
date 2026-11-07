@@ -9,11 +9,13 @@
 ---
 
 ## 🌟 Características Destacadas & Propuesta de Valor
+
 - **Experiencia Curada (14 Destinos Emblemáticos):** Enfocada en un catálogo altamente selectivo y de gran valor que presenta 14 de los lugares más impresionantes del mundo a través de una interfaz visual inmersiva.
 - **Soporte Multilingüe Nativo:** Internacionalización nativa completa para **Inglés (predeterminado)**, **Portugués** y **Español**, ofreciendo accesibilidad global inmediata y cambio de idioma en tiempo real.
 - **Flujo de Bienvenida Inteligente:** Experiencia de bienvenida en el primer inicio que presenta la propuesta de valor de la aplicación, con el estado de interacción del usuario gestionado mediante persistencia local.
 - **Arquitectura Offline-First:** El catálogo principal de destinos, la matriz de filtros por categoría y las atracciones localizadas se cargan al instante, sin dependencia de latencia de red.
 - **Motor de Favoritos Persistente:** Sistema de marcadores basado en estado que permite a los usuarios guardar sus destinos preferidos incluso después de reiniciar la aplicación.
+- **Soporte de Mapas Externos y Compartición:** Integración directa para abrir ubicaciones de destinos en Google Maps y funcionalidad nativa para compartir enlaces de destinos.
 
 ---
 
@@ -34,12 +36,12 @@
 ```
 
 ### Estrategias Técnicas Clave
+
 - **Enrutamiento Basado en Archivos (Expo Router):** Enrutamiento estrictamente tipado con TypeScript aprovechando la navegación Stack nativa para transiciones de pantalla fluidas y personalización precisa del encabezado.
 - **Renderizado Optimizado de Imágenes:** Implementación de expo-image para almacenamiento en caché de memoria, persistencia automática en disco y transiciones suaves entre imágenes.
 - **Rendimiento de Lista Virtualizada:** Configuración altamente optimizada de FlatList utilizando memoización de React (useCallback, React.memo) y ajustes finos de virtualización (windowSize, maxToRenderPerBatch, removeClippedSubviews) para mantener 60 FPS constantes durante el desplazamiento.
 - **Separación de Responsabilidades:** Lógica de negocio encapsulada en custom hooks limpios (useCityFilter), desacoplando la representación de la interfaz del manejo de estado.
 - **Estrategia de Datos Localizados:** Motor de internacionalización desacoplado que combina i18next con utilidades de resolución de datos (getLocalizedCity) para entregar objetos traducidos dinámicamente.
-
 
 📂 Estructura del Proyecto
 
@@ -65,6 +67,7 @@ src/
 ## 🚀 Cómo Empezar
 
 ### Requisitos Previos
+
 - Node.js (v18.0.0 o superior)
 - npm, pnpm o yarn
 - Aplicación Expo Go instalada en tu dispositivo físico o un emulador de Android/iOS
@@ -93,6 +96,7 @@ npx expo start
 Escanea el código QR con Expo Go (Android) o la aplicación de Cámara (iOS) para abrir el proyecto.
 
 ## 🛠️ Tecnologías Utilizadas
+
 - **Framework Principal**: React Native / Expo SDK
 - **Navegación**: Expo Router (Stack Navigation)
 - **Lenguaje**: TypeScript (Modo Estricto)
@@ -101,7 +105,8 @@ Escanea el código QR con Expo Go (Android) o la aplicación de Cámara (iOS) pa
 - **Medios y UI**: expo-image, react-native-safe-area-context
 
 ## 🗺️ Roadmap del Producto
+
 - [ ] Integración con API de Clima en Tiempo Real (TanStack Query + OpenWeatherMap API)
-- [ ] Mapas Interactivos con Geolocalización (react-native-maps)
-- [ ] Suite de Pruebas Automatizadas (Vitest + React Native Testing Library)
+- [x] Integración con Google Maps externo y Compartición de Destinos
+- [x] Suite de Pruebas Automatizadas (`Vitest` + `React Native Testing Library`)
 - [ ] Pipeline de CI/CD mediante GitHub Actions
