@@ -39,6 +39,7 @@ export default function RootLayout() {
               headerShadowVisible: false,
             }}
           >
+            <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="home/index" options={{ title: t("home.headerTitle") }} />
             <Stack.Screen
               name="city/[id]"
