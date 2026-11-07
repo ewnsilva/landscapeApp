@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/favicon.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.ewremotedev.14ndscapeApp"
+      "package": "com.ewremotedev.landscapeApp"
     },
     "web": {
       "output": "static",
