@@ -1,3 +1,4 @@
+// src/hooks/useWelcomeModal.ts
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useState } from "react";
 
@@ -12,11 +13,12 @@ export function useWelcomeModal() {
     async function checkWelcomeState() {
       try {
         const hasSeenWelcome = await AsyncStorage.getItem(WELCOME_STORAGE_KEY);
+        // Se ainda não viu (hasSeenWelcome é null/falsy), exibe o modal
         if (isMounted && !hasSeenWelcome) {
           setIsVisible(true);
         }
       } catch {
-        // If storage fails, don't block the app by showing the modal.
+        // Se houver erro no storage, não bloqueia o app
       }
     }
 
@@ -29,9 +31,10 @@ export function useWelcomeModal() {
   const dismiss = useCallback(async () => {
     setIsVisible(false);
     try {
+      // Salva no AsyncStorage que o usuário já viu o modal
       await AsyncStorage.setItem(WELCOME_STORAGE_KEY, "true");
     } catch {
-      // Ignore persistence errors — the modal will simply reappear next launch.
+      // Ignora erros de persistência
     }
   }, []);
 
