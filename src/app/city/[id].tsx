@@ -6,8 +6,7 @@ import { getLocalizedCity } from "@/utils/getLocalizedCity";
 import { Image } from "expo-image";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo } from "react";
-import { Alert, Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { Alert, Linking, Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native";
 
 export default function CityScreen() {
   const { i18n, t } = useTranslation();
@@ -45,17 +44,31 @@ export default function CityScreen() {
   }
 
   const handleShare = async () => {
+    const { latitude, longitude } = city.location;
+    const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${latitude},${longitude}`)}&travelmode=driving&dir_action=navigate`;
+
     try {
       await Share.share({
         title: t("city.shareTitle", { name: city.name }),
         message: t("city.shareMessage", {
           name: city.name,
           country: city.country,
-          url: `landscapeapp://city/${city.id}`,
+          url: directionsUrl,
         }),
       });
     } catch {
       Alert.alert(t("city.shareError"), t("city.shareErrorMessage"));
+    }
+  };
+
+  const handleOpenGoogleMaps = async () => {
+    const { latitude, longitude } = city.location;
+    const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${latitude},${longitude}`)}&travelmode=driving&dir_action=navigate`;
+
+    try {
+      await Linking.openURL(mapsUrl);
+    } catch {
+      Alert.alert("Google Maps", "Não foi possível abrir a localização.");
     }
   };
 
@@ -79,19 +92,13 @@ export default function CityScreen() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{t("city.location")}</Text>
-        <MapView
-          initialRegion={{
-            latitude: city.location.latitude,
-            longitude: city.location.longitude,
-            latitudeDelta: 0.18,
-            longitudeDelta: 0.18,
-          }}
-          scrollEnabled
-          style={styles.map}
-          zoomEnabled
+        <Pressable
+          accessibilityRole="link"
+          onPress={handleOpenGoogleMaps}
+          style={styles.openMapsButton}
         >
-          <Marker coordinate={city.location} description={city.country} title={city.name} />
-        </MapView>
+          <Text style={styles.openMapsButtonText}>{t("city.openGoogleMaps")}</Text>
+        </Pressable>
       </View>
 
       <Pressable accessibilityRole="button" onPress={handleShare} style={styles.shareButton}>
@@ -214,10 +221,19 @@ const styles = StyleSheet.create({
     color: "#a0a0a0",
     marginTop: 4,
   },
-  map: {
-    height: 220,
-    borderRadius: 12,
-    overflow: "hidden",
+  openMapsButton: {
+    marginTop: 12,
+    minHeight: 44,
+    borderWidth: 1,
+    borderColor: "#ffffff",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  openMapsButtonText: {
+    color: "#ffffff",
+    fontSize: 15,
+    fontWeight: "bold",
   },
   shareButton: {
     marginHorizontal: 16,
