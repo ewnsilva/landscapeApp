@@ -9,12 +9,19 @@ const LANGUAGE_LABELS: Record<SupportedLanguage, string> = {
   es: "ES",
 };
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  readonly compact?: boolean;
+}
+
+export default function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
   const { t } = useTranslation();
   const { language, changeLanguage, supportedLanguages } = useLanguage();
 
   return (
-    <View accessibilityLabel={t("language.label")} style={styles.container}>
+    <View
+      accessibilityLabel={t("language.label")}
+      style={[styles.container, compact && styles.compactContainer]}
+    >
       {supportedLanguages.map((code) => {
         const isSelected = language === code;
 
@@ -25,7 +32,7 @@ export default function LanguageSwitcher() {
             accessibilityLabel={t(`language.${code}`)}
             accessibilityState={{ selected: isSelected }}
             onPress={() => changeLanguage(code)}
-            style={[styles.chip, isSelected && styles.chipSelected]}
+            style={[styles.chip, compact && styles.compactChip, isSelected && styles.chipSelected]}
           >
             <Text style={[styles.chipText, isSelected && styles.chipTextSelected]}>
               {LANGUAGE_LABELS[code]}
@@ -44,6 +51,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 12,
   },
+  compactContainer: {
+    gap: 4,
+    paddingHorizontal: 0,
+    paddingTop: 0,
+  },
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -55,6 +67,10 @@ const styles = StyleSheet.create({
   chipSelected: {
     backgroundColor: "#ffffff",
     borderColor: "#ffffff",
+  },
+  compactChip: {
+    paddingHorizontal: 8,
+    paddingVertical: 5,
   },
   chipText: {
     color: "#b0b0b0",
