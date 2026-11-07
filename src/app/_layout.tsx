@@ -1,21 +1,40 @@
-import { queryClient, queryPersister } from "@/lib/queryClient";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { WelcomeModal } from "@/components/WelcomeModal";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
-import { useWelcomeModal } from "@/hooks/useWelcomeModal";
 import { initializeLanguage } from "@/i18n";
 import { useTranslation } from "@/i18n/useTranslation";
+import { queryClient, queryPersister } from "@/lib/queryClient";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { Stack } from "expo-router";
-import { useEffect } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
+
+// Mantém a splash screen visível enquanto carrega o idioma (opcional, mas recomendado)
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { t } = useTranslation();
-  const { isVisible, dismiss } = useWelcomeModal();
+  const [isReady, setIsReady] = useState(false);
+  const [isWelcomeVisible, setIsWelcomeVisible] = useState(true); // Sempre true ao abrir o app
 
   useEffect(() => {
-    initializeLanguage();
+    async function prepare() {
+      try {
+        await initializeLanguage();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    prepare();
   }, []);
+
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <AppErrorBoundary>
@@ -49,7 +68,7 @@ export default function RootLayout() {
               }}
             />
           </Stack>
-          <WelcomeModal onDismiss={dismiss} visible={isVisible} />
+          <WelcomeModal onDismiss={() => setIsWelcomeVisible(false)} visible={isWelcomeVisible} />
         </FavoritesProvider>
       </PersistQueryClientProvider>
     </AppErrorBoundary>

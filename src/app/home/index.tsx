@@ -5,6 +5,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { City } from "@/data/types";
 import { useCityFilter } from "@/hooks/useCityFilter";
 import { useTranslation } from "@/i18n/useTranslation";
+import { Stack } from "expo-router";
 import { useCallback } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -38,8 +39,8 @@ export default function Index() {
   const renderSeparator = useCallback(() => <View style={styles.separator} />, []);
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-      <LanguageSwitcher />
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
+      <Stack.Screen options={{ headerRight: () => <LanguageSwitcher compact /> }} />
 
       <CategoryFilter
         categories={categories}

@@ -45,7 +45,7 @@ export default function CategoryFilter({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 12,
+    marginVertical: 10,
   },
   listContainer: {
     paddingHorizontal: 16,
