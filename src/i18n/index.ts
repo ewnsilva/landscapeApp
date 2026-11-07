@@ -17,9 +17,6 @@ function isSupportedLanguage(value: string | null | undefined): value is Support
 
 function getDeviceLanguage(): SupportedLanguage {
   try {
-    // Required lazily, inside this try/catch, so an unavailable native module
-    // (e.g. when this file is imported outside of the running app, such as in tests)
-    // can never crash i18n setup.
     const Localization = require("expo-localization") as typeof import("expo-localization");
     const [locale] = Localization.getLocales();
     const languageCode = locale?.languageCode?.toLowerCase();
@@ -40,16 +37,11 @@ i18n.use(initReactI18next).init({
     es: { translation: es },
     pt: { translation: pt },
   },
-  lng: DEFAULT_LANGUAGE,
+  lng: getDeviceLanguage() || DEFAULT_LANGUAGE,
   fallbackLng: DEFAULT_LANGUAGE,
   interpolation: { escapeValue: false },
 });
 
-/**
- * Resolves the language the app should start in: a previously saved user
- * preference takes priority, otherwise it falls back to the device's language.
- * Meant to be called once, from the app's root layout.
- */
 export async function initializeLanguage(): Promise<void> {
   try {
     const storedLanguage = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
